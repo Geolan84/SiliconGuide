@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Компьютерный Справочник по Материалам для Электроники</title>
+    <link href="~/im/IMET-RAN.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" asp-area="" asp-controller="Guide" asp-action="Index">
+                <img src="~/im/logo.jpg" width="45" height="35" />
+            </a>
+            <div class="nav navbar-nav mx-auto">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form method="get" asp-action="Search" asp-controller="Guide" class="form-inline mt-2 mt-md-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Поиск" value="@ViewData["search"]" name="search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+                    </form>
+                }
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+            }
+        </nav>
+    </header>
+
+    <div class="container-fluid newconwidth">
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                @await Component.InvokeAsync("Menu")
+            </div>
+            <div class="col-md-8">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start fixed-bottom">
+        <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2);">
+            Все права защищены &copy; @DateTime.Now.Year
+            <a asp-area="" asp-controller="Guide" asp-action="Contacts"> (Контакты)</a>
+        </div>
+    </footer>
+
+    <script src="~/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

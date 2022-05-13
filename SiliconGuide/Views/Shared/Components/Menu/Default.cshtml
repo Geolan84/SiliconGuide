@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Category>
+
+@{
+    var level = 0;
+}
+
+@if (Model != null)
+{
+    <ul>
+        @foreach (var category in Model)
+        {
+            @if (category.Tree >= level)
+            {
+                ++level;
+                @Html.Raw("<ul>")
+            }
+            @if (category.Tree < level)
+            {
+                @Html.Raw(String.Concat(Enumerable.Repeat("</ul>", level - category.Tree)))
+                level = category.Tree;
+            }
+            <li>
+                @if (category.ArticleID != null)
+                {
+                    <a asp-action="Index" asp-controller="Guide" asp-route-id="@category.ArticleID" style="color: black; font-size:larger;"><b>@category.Name</b></a>
+                }
+                else
+                {
+                    <a style="font-size:larger">@category.Name</a>
+                }
+            </li>
+        }
+    </ul>
+}

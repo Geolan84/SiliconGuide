@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Category>
+
+@if (Model != null && Model.Count() != 0)
+{
+    <p1>Найдены упоминания в:</p1>
+    <br />
+    @foreach (var category in Model)
+    {
+        <li>
+            <a asp-action="Index" asp-controller="Guide" asp-route-id="@category.ArticleID" style="">@category.Name</a>
+        </li>
+    }
+}
+else
+{
+    <p1>Упоминания не обнаружены</p1>
+}

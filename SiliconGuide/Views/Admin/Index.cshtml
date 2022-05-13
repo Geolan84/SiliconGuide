@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SiliconGuide.Models.Category>
+
+<h1>Категории</h1>
+
+<div class="row">
+<p style="text-align:right;margin-right:20px;">
+    <a class="btn btn-outline-primary" asp-action="AddOrEdit" asp-controller="Admin">Добавить категорию</a>
+</p>
+<p style="text-align:right;margin-right:20px;">
+    <a class="btn btn-outline-primary" asp-action="Article" asp-controller="Admin">Создать статью</a>
+</p>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Имя
+                </th>
+                <th>
+                    ID категории
+                </th>
+                <th>
+                    ID родителя
+                </th>
+                <th>
+                    ID статьи
+                </th>
+                <th>
+                    Приоритет
+                </th>
+                <th></th>
+                <th>Изменение</th>
+                <th>Просмотр</th>
+                <th>Удаление</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleCategoryID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParentCategoryID)
+                    </td>
+                    <td>
+                        <a asp-action="Article" asp-controller="Admin" asp-route-id="@item.ArticleID">@item.ArticleID</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </td>
+                    <td>
+                    <td class="text-center">
+                        <a asp-action="AddOrEdit" class="btn btn-outline-primary" asp-route-ArticleCategoryID="@item.ArticleCategoryID">Изменить</a>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Details" class="btn btn-outline-info" asp-route-ArticleID="@item.ArticleID">Читать</a>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Delete" class="btn btn-outline-danger" asp-route-ArticleCategoryID="@item.ArticleCategoryID">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
